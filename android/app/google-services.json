@@ -1,0 +1,67 @@
+{
+  "project_info": {
+    "project_number": "676938262003",
+    "project_id": "demone-ef35a",
+    "storage_bucket": "demone-ef35a.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:676938262003:android:5633a7afe15a28d82ade86",
+        "android_client_info": {
+          "package_name": "com.example.alab"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCJnMOJhG2LwESnD5eaIakhGEnFXQ6rK7g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:676938262003:android:baca23a1d7cfec472ade86",
+        "android_client_info": {
+          "package_name": "com.example.alabtech"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCJnMOJhG2LwESnD5eaIakhGEnFXQ6rK7g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:676938262003:android:cf9a1c8a771211382ade86",
+        "android_client_info": {
+          "package_name": "com.example.droptaxi"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCJnMOJhG2LwESnD5eaIakhGEnFXQ6rK7g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
