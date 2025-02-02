@@ -26,7 +26,7 @@ class TapbarWidget extends StatelessWidget {
           children: [
             GestureDetector(
                 onTap: () {
-                  homeController.changeSelected(0,homeController.isSelected);
+                  homeController.changeSelected(0, homeController.isSelected);
                   homeController.dropIndex.value = 0;
                 },
                 child: homeController.isSelected[0]
@@ -40,7 +40,7 @@ class TapbarWidget extends StatelessWidget {
             SizedBox(width: MediaQuery.sizeOf(context).width * 0.17),
             GestureDetector(
                 onTap: () {
-                  homeController.changeSelected(1,homeController.isSelected);
+                  homeController.changeSelected(1, homeController.isSelected);
                   homeController.dropIndex.value = 1;
                 },
                 child: homeController.isSelected[1]
@@ -51,20 +51,6 @@ class TapbarWidget extends StatelessWidget {
                             fontSize: Dimensions.fontSizeExtraLarge),
                       )
                     : const HowoverTexxt(text: AppConstant.multiTrip)),
-            SizedBox(width: MediaQuery.sizeOf(context).width * 0.17),
-            GestureDetector(
-                onTap: () {
-                  homeController.changeSelected(2,homeController.isSelected);
-                  homeController.dropIndex.value = 2;
-                },
-                child: homeController.isSelected[2]
-                    ? Text(
-                        AppConstant.bigTrip,
-                        style: TextstyleService.tabBar().copyWith(
-                            fontWeight: FontWeight.w900,
-                            fontSize: Dimensions.fontSizeExtraLarge),
-                      )
-                    : const HowoverTexxt(text: AppConstant.bigTrip)),
           ],
         ),
       )),

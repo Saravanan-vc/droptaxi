@@ -1,4 +1,5 @@
 import 'package:droptaxi/service/responsive_service.dart';
+import 'package:droptaxi/util/app_constant.dart';
 import 'package:droptaxi/util/dimensions.dart';
 import 'package:droptaxi/view/controller/home_controller.dart';
 import 'package:flutter/material.dart';
@@ -33,7 +34,7 @@ class CalculationArea extends StatelessWidget {
             ),
             Center(
               child: Text(
-                  "Esitmate : ₹  ${homeController.isSelected[0] ? homeController.priceforRide.value : homeController.isSelected[1] ? homeController.priceforRide.value * 1.5 : homeController.priceforRide.value * 2} *"),
+                  "Estimate : ₹  ${homeController.isSelected[0] ? homeController.priceforRide.value : homeController.isSelected[1] ? homeController.priceforRide.value * 1.5 : homeController.priceforRide.value * 2} *"),
             ),
             const SizedBox(height: 8),
             Center(
@@ -44,7 +45,7 @@ class CalculationArea extends StatelessWidget {
             ),
             Center(
               child: Text(
-                "Inclusive of GST. The actual bill might differ based on actual distance travelled,waiting time (for droptrips), night charges (for droptrips), hill-station charges & inter-state permits.",
+                AppConstant.purchaseInfo,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                     fontSize: Dimensions.fontSizeSmall - 2,

@@ -1,5 +1,5 @@
 class ImageUtil {
-  static const logo = "assets/logo.png";
+  static const logo = "assets/logo.jpeg";
   static const icon = "assets/iconred.png";
   static const carList = [
     {"image": "assets/sedan_black.png", "car": "Sedan", "price": "14"},

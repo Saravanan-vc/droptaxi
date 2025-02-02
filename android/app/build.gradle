@@ -59,3 +59,9 @@ android {
 flutter {
     source = "../.."
 }
+
+dependencies {
+  implementation 'com.google.firebase:firebase-functions:latest_version'
+  implementation 'com.google.firebase:firebase-core:latest_version'
+  // Add any other Firebase dependencies here
+}

@@ -1,14 +1,23 @@
 import 'package:droptaxi/service/custompop.dart';
+import 'package:droptaxi/service/email_service.dart';
 import 'package:droptaxi/util/color_constant.dart';
 import 'package:droptaxi/view/database/firebase_data.dart';
 import 'package:droptaxi/view/model/from_model.dart';
 import 'package:droptaxi/view/model/info_model.dart';
+import 'package:droptaxi/view/model/info_services.dart';
 import 'package:droptaxi/view/model/intial_service.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
+import 'package:get/get_rx/get_rx.dart';
+import 'package:get/get_rx/src/rx_types/rx_types.dart';
 
 class HomeController extends GetxController {
+  RxBool isTapedBooked = false.obs;
+   RxBool isTapedSubmit = false.obs;
+  TextEditingController fromController = TextEditingController();
+  TextEditingController toController = TextEditingController();
   final int basiBata = 600;
   RxBool isSinglehowver = false.obs;
   RxBool isMultihowver = false.obs;
@@ -19,26 +28,24 @@ class HomeController extends GetxController {
   RxBool polcyAccept = false.obs;
   RxList isSelected = [true, false, false].obs;
   RxBool isPickedBoth = false.obs;
-  RxList<bool> isTaped = [false, false, false].obs;
+  RxList<bool> isTaped = [true, false, false].obs;
   RxMap<String, double> fromPostion = {"lat": 0.0, "long": 0.0}.obs;
   RxMap<String, double> toPostion = {"lat": 0.0, "long": 0.0}.obs;
   RxInt priceforRide = 0.obs;
   RxDouble kilometer = 0.0.obs;
-  // dumy varaible set
-  RxString adultsChange = "No.of Adults".obs;
-  RxString chilsChange = "No.of Childs".obs;
-  RxString laguageChange = "No.of Lagguages".obs;
-  RxString mrorms = "Mr".obs;
-  RxString getInfo = "Selecte".obs;
-  // RxString date = "".obs;
-  // RxString time = "".obs;
-  // RxString mobilenumber = "".obs;
-  // RxString alternumber = "".obs;
-  // RxString name = "".obs;
-  // RxString email = "".obs;
-  // RxString pickup = "".obs;
-  // RxString drop = "".obs;
-  // RxString remark = "".obs;
+  // content about services and policys
+  RxString isInfoe = "About".obs;
+  RxString aboutUs = "".obs;
+  RxString faqs = ''.obs;
+  RxString luggageCont = "".obs;
+  RxString cancelCont = "".obs;
+  RxString refundCont = "".obs;
+  RxString contaUScont = "".obs;
+  ScrollController scrollController = ScrollController();
+  RxBool isEntered = false.obs;
+  RxBool isBooked = false.obs;
+  RxBool isMEntered = false.obs;
+  RxBool isMBooked = false.obs;
 
   Rx<IntialServiceModel> productSelcted = IntialServiceModel(
     amout: 0,
@@ -51,26 +58,15 @@ class HomeController extends GetxController {
   ).obs;
 
   Rx<InfoModel> infoUser = InfoModel(
-          accept: false,
-          adults: "",
-          altermobile: "",
-          chils: "",
-          date: "",
-          fromadress: "",
-          getinfo: "",
-          laguggage: "",
-          mobile: "",
-          mrorms: "",
-          remark: "",
-          name: "",
-          email: "",
-          time: "",
-          toadress: "")
-      .obs;
+    accept: false,
+    date: "",
+    mobile: "",
+    name: "",
+    time: "",
+  ).obs;
 
   RxList<FromModel> fromdrop = const [
     FromModel(
-      adress: "",
       lat: 0.0,
       location: "From",
       long: 0.0,
@@ -78,7 +74,6 @@ class HomeController extends GetxController {
   ].obs;
   RxList<FromModel> todrop = const [
     FromModel(
-      adress: "",
       lat: 0.0,
       location: "To",
       long: 0.0,
@@ -91,12 +86,14 @@ class HomeController extends GetxController {
     }
   }
 
+  Rx<InfoServices> information = const InfoServices(
+          addressInfo: "", emailInfo: "", mobileNumber: 0, whatsAppNumber: 0)
+      .obs;
+
   void caluclation(Map from, Map to) {
     double rawGeolocatorMiter = Geolocator.distanceBetween(
         from['lat'], from['long'], to['lat'], to['long']);
     double distanceInKilometers = rawGeolocatorMiter / 1000;
-    debugPrint(
-        "\u001B[33m kilometer : \u001B[35m ${distanceInKilometers.toStringAsFixed(2)}");
     kilometer.value = double.parse(distanceInKilometers.toStringAsFixed(2));
   }
 
@@ -115,9 +112,39 @@ class HomeController extends GetxController {
     });
   }
 
+  Future<void> getInfomation() async {
+    List data = await FirebaseDataClass().getInfo();
+
+    data.forEach((element) {
+      information.value = InfoServices.fromJson(element.data());
+    });
+    information.value = InfoServices.fromJson(data[0].data());
+  }
+
+  Future<void> contentDeclared() async {
+    String content = await rootBundle.loadString("assets/footer.txt");
+
+    int about = content.indexOf('About Us:');
+    int faq = content.indexOf('FAQs:');
+    int luggage = content.indexOf('Luggage Policy:');
+    int cancellation = content.indexOf('Cancellation Policy:');
+    int refund = content.indexOf('Refund Policy:');
+    int contatus = content.indexOf('Contact us');
+    int remove = content.indexOf('Tariff:');
+
+    aboutUs.value = content.substring(about, faq);
+    faqs.value = content.substring(faq, luggage);
+    luggageCont.value = content.substring(luggage, cancellation);
+    cancelCont.value = content.substring(cancellation, refund);
+    refundCont.value = content.substring(refund, contatus);
+    contaUScont.value = content.substring(contatus, remove);
+  }
+
   @override
   void onInit() {
+    getInfomation();
     assignData();
+    contentDeclared();
     super.onInit();
   }
 
@@ -155,33 +182,36 @@ class HomeController extends GetxController {
     debugPrint("\u001B[33m Picked Time : \u001B[35m ${controller.text}");
   }
 
-  // void manualPrint() {
-  //   customePrinter("productsSelected", productSelcted.value.toString());
-  //   customePrinter("UserInfo", infoUser.value.toString());
-  // }
-
   //validation
 
   void validate() {
-    infoUser.value.mrorms = mrorms.value;
     if (infoUser.value.date.isNotEmpty &&
         infoUser.value.time.isNotEmpty &&
-        infoUser.value.adults.isNotEmpty &&
-        infoUser.value.chils.isNotEmpty &&
-        infoUser.value.laguggage.isNotEmpty &&
         infoUser.value.mobile.isNotEmpty &&
-        infoUser.value.altermobile.isNotEmpty &&
-        infoUser.value.email.isNotEmpty &&
-        infoUser.value.name.isNotEmpty &&
-        infoUser.value.fromadress.isNotEmpty &&
-        infoUser.value.toadress.isNotEmpty &&
-        infoUser.value.remark.isNotEmpty &&
-        infoUser.value.getinfo.isNotEmpty) {
+        infoUser.value.name.isNotEmpty) {
       if (infoUser.value.accept) {
         Map<String, dynamic> infoUserMap = infoUser.value.asMap();
         Map<String, dynamic> productSelctedMap = productSelcted.value.asMap();
         infoUserMap.addAll(productSelctedMap);
-        FirebaseDataClass().sendData(infoUserMap);
+        EmailService.sendEmail(
+          infoUser.value.time,
+          infoUser.value.date,
+          infoUser.value.name,
+          infoUser.value.mobile,
+          productSelcted.value.amout,
+          productSelcted.value.service,
+          productSelcted.value.car,
+          productSelcted.value.from,
+          productSelcted.value.to,
+        );
+        FirebaseDataClass().sendData(infoUserMap).then((value) {
+          scrollController.animateTo(0,
+              duration: const Duration(milliseconds: 800),
+              curve: Curves.easeIn);
+          fromSelect.value = "From";
+          toSelect.value = "To";
+          isPickedBoth.value = false;
+        });
       } else {
         customPOPmsg("Please Accepte the condition", ColorConstant.thirdColor);
       }

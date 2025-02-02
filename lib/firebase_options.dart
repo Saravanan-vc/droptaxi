@@ -41,12 +41,13 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyD9fpOvNMDVxWEY5wm5sjXA6csxydQJ74k',
-    appId: '1:676938262003:web:288e1c71003cb1a92ade86',
-    messagingSenderId: '676938262003',
-    projectId: 'demone-ef35a',
-    authDomain: 'demone-ef35a.firebaseapp.com',
-    storageBucket: 'demone-ef35a.firebasestorage.app',
+    apiKey: 'AIzaSyCS4oPG7gtwXRsH-eZ9YKzirBx5HbCxuRg',
+    appId: '1:712713831993:web:eb0189127a3af260a92fe8',
+    messagingSenderId: '712713831993',
+    projectId: 'drop-taxi-a0feb',
+    authDomain: 'drop-taxi-a0feb.firebaseapp.com',
+    storageBucket: 'drop-taxi-a0feb.firebasestorage.app',
+    measurementId: 'G-5D3HSGKWE6',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
@@ -67,20 +68,22 @@ class DefaultFirebaseOptions {
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyBCjuhJwtcCIPysTiEc99y84jMfXHz59eI',
-    appId: '1:676938262003:ios:def6db6287abe2d82ade86',
-    messagingSenderId: '676938262003',
-    projectId: 'demone-ef35a',
-    storageBucket: 'demone-ef35a.firebasestorage.app',
+    apiKey: 'AIzaSyC05j5AyHzXzYT6VwqFIlA44togW_Hx08E',
+    appId: '1:712713831993:ios:60969fc7d9dbcfcca92fe8',
+    messagingSenderId: '712713831993',
+    projectId: 'drop-taxi-a0feb',
+    storageBucket: 'drop-taxi-a0feb.firebasestorage.app',
     iosBundleId: 'com.example.droptaxi',
   );
 
   static const FirebaseOptions windows = FirebaseOptions(
-    apiKey: 'AIzaSyDh3FVx3Z1nVmZnM_DliF69X8jnT9F5yPA',
-    appId: '1:676938262003:web:8b0319ecd3a10b352ade86',
-    messagingSenderId: '676938262003',
-    projectId: 'demone-ef35a',
-    authDomain: 'demone-ef35a.firebaseapp.com',
-    storageBucket: 'demone-ef35a.firebasestorage.app',
+    apiKey: 'AIzaSyCS4oPG7gtwXRsH-eZ9YKzirBx5HbCxuRg',
+    appId: '1:712713831993:web:6ce3a2941eedb80fa92fe8',
+    messagingSenderId: '712713831993',
+    projectId: 'drop-taxi-a0feb',
+    authDomain: 'drop-taxi-a0feb.firebaseapp.com',
+    storageBucket: 'drop-taxi-a0feb.firebasestorage.app',
+    measurementId: 'G-2VKBBF8SWN',
   );
+
 }

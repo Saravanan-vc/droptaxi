@@ -3,6 +3,7 @@ import 'package:droptaxi/util/app_constant.dart';
 import 'package:droptaxi/util/color_constant.dart';
 import 'package:droptaxi/util/dimensions.dart';
 import 'package:droptaxi/util/image_util.dart';
+import 'package:droptaxi/view/controller/home_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -11,10 +12,11 @@ class NavWidget extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
+    HomeController homeController =
+        Get.find<HomeController>(tag: 'homecontroller');
     return Container(
-      height: ResponsiveService.isMobel(context)
-          ? Dimensions.appBar
-          : Dimensions.webappBar,
+      height:
+          ResponsiveService.isRealMobel(context) ? Dimensions.appBar + 20 : 80,
       width: double.infinity,
       decoration: const BoxDecoration(color: ColorConstant.baseColor),
       child: Padding(
@@ -23,27 +25,30 @@ class NavWidget extends StatelessWidget implements PreferredSizeWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            ResponsiveService.isMobel(context)
-                ? GestureDetector(
+            ResponsiveService.isRealMobel(context)
+                ? const SizedBox()
+                : GestureDetector(
                     onTap: () {
-                      Scaffold.of(context).openDrawer();
+                      homeController.scrollController.animateTo(0,
+                          duration: const Duration(seconds: 1),
+                          curve: Curves.easeIn);
                     },
-                    child: const Icon(
-                      Icons.menu_rounded,
-                      color: ColorConstant.thirdColor,
-                    ))
-                : const Image(
-                    height: Dimensions.paddingSizeExtremeLarge,
-                    image: AssetImage(ImageUtil.icon),
+                    child: const Image(
+                      height: Dimensions.paddingSizeExtremeLarge,
+                      image: AssetImage(ImageUtil.icon),
+                    ),
                   ),
             ResponsiveService.isMobel(context)
                 ? const Image(
                     height: Dimensions.paddingSizeExtremeLarge,
-                    image: AssetImage(ImageUtil.icon),
-                  )
-                : const Image(
-                    height: Dimensions.paddingSizeExtremeLarge,
+                    width: 200,
+                    fit: BoxFit.fitWidth,
                     image: AssetImage(ImageUtil.logo),
+                  )
+                :  Image.asset(
+                   width: 350,
+                    fit: BoxFit.contain,
+                    ImageUtil.logo,
                   ),
           ],
         ),
@@ -53,9 +58,9 @@ class NavWidget extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Size get preferredSize =>
-      Size.fromHeight(ResponsiveService.isMobel(Get.context!)
-          ? Dimensions.appBar
-          : Dimensions.webappBar);
+      Size.fromHeight(ResponsiveService.isRealMobel(Get.context!)
+          ? Dimensions.appBar + 20
+          : 80);
 }
 
 class AppDrawer extends StatelessWidget {
